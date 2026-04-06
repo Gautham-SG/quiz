@@ -24,8 +24,8 @@ QUIZ_DATA[4] = {
     },
     {
       q: "If a car is running up to 10 km and emits CO, what would the CO concentration be at ground level?",
-      opts: ["C = q / (√(2π) · σz · u)", "C = 2q / (π · σz · u)", "C = 2π·q / (π · σz · u)", "C = 2q / (2π · σz · u)"],
-      ans: 0
+      opts: ["C = q / (√(2π) · σz · u)", "C = 2q / (π · σz · u)", "C = 2π·q / (π · σz · u)", "C = 2q / (√(2π) · σz · u)"],
+      ans: 3
     },
     {
       q: "The Gaussian dispersion model for a line source gives concentration C as:\n\nC = [2q / (√(2π) · σz · u · sinΦ)] · exp(−H² / 2σz²)\n\nWhat is the unit of C in this equation?",
