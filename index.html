@@ -110,7 +110,12 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 .stat .sl{font-size:0.72rem;color:var(--muted);margin-top:2px;}
 .review-header{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:1.5px;margin-bottom:1rem;text-transform:uppercase;}
 .review-list{display:flex;flex-direction:column;gap:0.9rem;margin-bottom:2rem;}
-.rev-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.2rem;border-left:3px solid var(--red);}
+.rev-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.2rem;border-left:3px solid var(--border);}
+.rev-ok{border-left-color:var(--green);}
+.rev-fail{border-left-color:var(--red);}
+.rev-status{float:right;font-family:var(--mono);font-size:9px;padding:2px 8px;border-radius:4px;font-weight:600;}
+.rs-ok{background:rgba(52,211,153,0.12);color:var(--green);}
+.rs-fail{background:rgba(248,113,113,0.12);color:var(--red);}
 .rev-qnum{font-family:var(--mono);font-size:9px;color:var(--muted);letter-spacing:1px;margin-bottom:5px;text-transform:uppercase;}
 .rev-q{font-size:0.85rem;font-weight:500;line-height:1.55;margin-bottom:0.8rem;white-space:pre-line;}
 .rev-badges{display:flex;flex-wrap:wrap;gap:0.45rem;}
@@ -402,25 +407,23 @@ function showResults() {
   const revHeader = document.getElementById('rev-header');
   const revList   = document.getElementById('review-list');
 
-  if (wrong === 0) {
-    revHeader.textContent = 'All answers correct!';
-    revList.innerHTML = `<div style="text-align:center;padding:2rem;color:var(--green);font-family:var(--mono);font-size:0.85rem;">✓ You answered every question correctly.</div>`;
-  } else {
-    revHeader.textContent = `Review · ${wrong} incorrect answer${wrong !== 1 ? 's' : ''}`;
-    revList.innerHTML = questions.map((q,i) => {
-      if (answers[i] === q.ans) return '';
-      const ua = answers[i];
-      return `
-        <div class="rev-card">
-          <div class="rev-qnum">Q${i+1}${q._week ? ' · Week ' + q._week : ''}</div>
-          <div class="rev-q">${esc(q.q)}</div>
-          <div class="rev-badges">
-            <span class="badge yours">Your answer: ${ua !== null ? L[ua] + '. ' + esc(q.opts[ua]) : 'Not answered'}</span>
-            <span class="badge correct">Correct: ${L[q.ans]}. ${esc(q.opts[q.ans])}</span>
-          </div>
-        </div>`;
-    }).join('');
-  }
+  revHeader.textContent = `All Questions · ${correct} correct, ${wrong} incorrect`;
+  revList.innerHTML = questions.map((q,i) => {
+    const ua = answers[i];
+    const isCorrect = ua === q.ans;
+    return `
+      <div class="rev-card ${isCorrect ? 'rev-ok' : 'rev-fail'}">
+        <div class="rev-qnum">
+          Q${i+1}${q._week ? ' · Week ' + q._week : ''}
+          <span class="rev-status ${isCorrect ? 'rs-ok' : 'rs-fail'}">${isCorrect ? '✓ Correct' : '✗ Wrong'}</span>
+        </div>
+        <div class="rev-q">${esc(q.q)}</div>
+        <div class="rev-badges">
+          ${!isCorrect ? `<span class="badge yours">Your answer: ${ua !== null ? L[ua] + '. ' + esc(q.opts[ua]) : 'Not answered'}</span>` : ''}
+          <span class="badge correct">${isCorrect ? '✓ ' : 'Correct: '}${L[q.ans]}. ${esc(q.opts[q.ans])}</span>
+        </div>
+      </div>`;
+  }).join('');
 
   document.getElementById('retry-btn').onclick = () =>
     mode === 'all' ? startQuiz('all') : startQuiz(weekNum);
