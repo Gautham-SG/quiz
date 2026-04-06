@@ -265,17 +265,26 @@ function shuffle(arr) {
   return a;
 }
 
+function shuffleOptions(q) {
+  const indices = shuffle([0, 1, 2, 3]);
+  return {
+    ...q,
+    opts: indices.map(i => q.opts[i]),
+    ans:  indices.indexOf(q.ans)
+  };
+}
+
 function startQuiz(weekNum) {
   let qs = [];
   if (weekNum === 'all') {
     Object.keys(QUIZ_DATA).forEach(w => {
-      QUIZ_DATA[w].qs.forEach(q => qs.push({ ...q, _week: parseInt(w) }));
+      QUIZ_DATA[w].qs.forEach(q => qs.push(shuffleOptions({ ...q, _week: parseInt(w) })));
     });
     qs = shuffle(qs);
     S.mode = 'all'; S.weekNum = null;
   } else {
     if (!QUIZ_DATA[weekNum]) return;
-    qs = shuffle(QUIZ_DATA[weekNum].qs.map(q => ({ ...q, _week: weekNum })));
+    qs = shuffle(QUIZ_DATA[weekNum].qs.map(q => shuffleOptions({ ...q, _week: weekNum })));
     S.mode = 'week'; S.weekNum = weekNum;
   }
   S.questions = qs;
