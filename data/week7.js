@@ -30,7 +30,7 @@ QUIZ_DATA[7] = {
         "Badge-type samplers",
         "Tube-type samplers"
       ],
-      ans: 3
+      ans: 2
     },
     {
       q: "By far the most commonly used method for estimating air-exchange rates within a building space is the:",
