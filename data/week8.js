@@ -10,7 +10,7 @@ QUIZ_DATA[8] = {
         "Installation of a ventilation system (NV)",
         "Combining purification and source control"
       ],
-      ans: 3
+      ans: 2
     },
     {
       q: "Where is the majority of atmospheric ozone concentrated?",
