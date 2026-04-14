@@ -60,7 +60,7 @@ QUIZ_DATA[10] = {
         "Commercial vehicles > 15 years, Passenger vehicles > 20 years",
         "Commercial vehicles > 20 years, Passenger vehicles > 15 years"
       ],
-      ans: 0
+      ans: 2
     },
     {
       q: "A cyclone has inlet width = 20 cm, 5 effective turns, gas temp = 350 K, inlet velocity = 12 m/s, particle density = 1.5 g/cm³, viscosity = 0.0748 kg/m·h.\n\nWhat is the cut diameter (50% collection efficiency)?\nFormula: Dp,cut = √(9µB / 2πVNtρp)",
